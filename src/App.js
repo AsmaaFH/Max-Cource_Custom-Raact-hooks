@@ -17,20 +17,16 @@ function App() {
     setTasks(loadedTasks);
   };
 
-  const {
-    isLoading,
-    error,
-    sendRequest: fetchTasks,
-  } = useHttp(
-    {
-      url: 'https://http-hook-45928-default-rtdb.firebaseio.com//tasks.json',
-    },
-    transformedTasks
-  );
+  const { isLoading, error, sendRequest: fetchTasks } = useHttp();
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    fetchTasks(
+      {
+        url: 'https://http-hook-45928-default-rtdb.firebaseio.com//tasks.json',
+      },
+      transformedTasks
+    );
+  }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
